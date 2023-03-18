@@ -43,28 +43,42 @@ export default makeScene2D(function* (view) {
 
   view.removeChildren();
 
+  const v1 = createRef<Circle>();
+  const v2 = createRef<Layout>();
+  const v3 = createRef<Rect>();
+  const v4 = createRef<Txt>();
 
   view.add(
     <>
       <Circle
+        ref={v1}
         x={0}
         width={140}
         height={140}
         fill="#e13238" />
-      <Layout>
+      <Layout ref={v2}>
         <Rect
+          ref={v3}
           x={200}
           y={200}
           width={140}
           height={140}
           fill="#e13238" />
         <Txt
+          ref={v4}
           x={400}
           y={400}
           fill="#e13238"
         >Hi</Txt>
       </Layout>
     </>,
+  );
+
+  yield* all(
+    v1().scale.x(2, 1),
+    // v2().scale.x(300, 1),
+    v3().scale.x(3, 1),
+    v4().scale.x(3, 1),
   );
 
 });
