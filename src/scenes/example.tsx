@@ -1,7 +1,10 @@
 import { makeScene2D } from '@motion-canvas/2d/lib/scenes';
 import { Circle, Layout, Rect, Txt } from '@motion-canvas/2d/lib/components';
 import { createRef } from '@motion-canvas/core/lib/utils';
-import { all } from '@motion-canvas/core/lib/flow';
+import { all, waitFor } from '@motion-canvas/core/lib/flow';
+import { CodeBlock } from '@motion-canvas/2d/lib/components/CodeBlock';
+import { Latex } from '@motion-canvas/2d/lib/components';
+
 
 export default makeScene2D(function* (view) {
   const myCircle = createRef<Circle>();
@@ -80,5 +83,26 @@ export default makeScene2D(function* (view) {
     v3().scale.x(3, 1),
     v4().scale.x(3, 1),
   );
+  view.removeChildren();
+
+
+  yield view.add(
+    <CodeBlock language="c#" code={`Console.WriteLine("Hello World!")`} />,
+  );
+  
+  yield* waitFor(2);
+  view.removeChildren();
+
+  const tex = createRef<Latex>();
+  view.add(
+    <Latex
+      ref={tex}
+      tex="{\color{white} x = \sin \left( \frac{\pi}{2} \right)}"
+      y={0}
+      width={400} // height and width can calculate based on each other
+    />,
+  );
+  yield* tex().opacity(0, 1);
+  yield* tex().opacity(1, 1);
 
 });
