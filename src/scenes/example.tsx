@@ -1,7 +1,7 @@
-import {makeScene2D} from '@motion-canvas/2d/lib/scenes';
-import {Circle, Rect} from '@motion-canvas/2d/lib/components';
-import {createRef} from '@motion-canvas/core/lib/utils';
-import {all} from '@motion-canvas/core/lib/flow';
+import { makeScene2D } from '@motion-canvas/2d/lib/scenes';
+import { Circle, Layout, Rect, Txt } from '@motion-canvas/2d/lib/components';
+import { createRef } from '@motion-canvas/core/lib/utils';
+import { all } from '@motion-canvas/core/lib/flow';
 
 export default makeScene2D(function* (view) {
   const myCircle = createRef<Circle>();
@@ -39,6 +39,32 @@ export default makeScene2D(function* (view) {
   yield* all(
     myRect().position.x(300, 1).to(-300, 1),
     myRect().fill('#e6a700', 1).to('#e13238', 1),
+  );
+
+  view.removeChildren();
+
+
+  view.add(
+    <>
+      <Circle
+        x={0}
+        width={140}
+        height={140}
+        fill="#e13238" />
+      <Layout>
+        <Rect
+          x={200}
+          y={200}
+          width={140}
+          height={140}
+          fill="#e13238" />
+        <Txt
+          x={400}
+          y={400}
+          fill="#e13238"
+        >Hi</Txt>
+      </Layout>
+    </>,
   );
 
 });
